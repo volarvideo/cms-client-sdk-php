@@ -1,4 +1,7 @@
 <?php
+namespace Volar;
+
+use Volar\FileUploader;
 
 class Volar {
 	public $api_key = null;
