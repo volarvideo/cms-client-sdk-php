@@ -1,8 +1,6 @@
 <?php
 namespace Volar;
 
-use Volar\FileUploader;
-
 class Volar {
 	public $api_key = null;
 	public $secret = null;
@@ -169,8 +167,14 @@ class Volar {
 	 *				- required -
 	 *				'site'				slug of site to filter to.
 	 *				'id'				id of broadcast
+	 *				- optional -
+	 *				'url'				url of video you wish to use to use to archive to this broadcast
+	 *									Volar's system will download this video for transcoding, so this video file 
+	 *									MUST be accessible by external systems.  If it isn't available, the archival
+	 *									process will fail, even if this function returns a success.
 	 *	@param string $file_path (optional) path to file you wish to upload.
-	 *				Only necessary if you wish to upload a new video file to an existing broadcast.
+	 *				Only necessary if you wish to upload a new video file to an existing broadcast and you do not
+	 *				have a url to a file (see params).
 	 *				If your broadcast was streamed via a different method (RTMP or production truck) & you wish to
 	 *				archive the existing video data, omit this argument.
 	 *	@return false on failure, array on success.  if failed, $volar->getError() can be used to get last error string
@@ -184,12 +188,30 @@ class Volar {
 		}
 		if(empty($file_path))
 		{
-			return $this->request('api/client/broadcast/archive', 'GET', $params);
+			if(isset($params['url']))
+				return $this->request('api/client/broadcast/archive', 'POST', array(), json_encode($params));
+			else
+				return $this->request('api/client/broadcast/archive', 'GET', $params);
 		}
 		else
 		{
-			$post = array('archive' => '@'.ltrim($file_path,'@'));
-			return $this->request('api/client/broadcast/archive', 'POST', $params, $post);
+			if(!file_exists($file_path))
+			{
+				$this->error = "\"$file_path\" does not appear to exist";
+				return false;
+			}
+			// $post = array('archive' => '@'.ltrim($file_path,'@'));
+			try
+			{
+				$uploader = new Volar\FileUploader($this);
+				$post_params = $uploader->upload($file_path);
+			}
+			catch(Exception $e)
+			{
+				$this->error = $e->getMessage();
+				return false;
+			}
+			return $this->request('api/client/broadcast/archive', 'POST', $params, json_encode($post_params));
 		}
 	}
 
