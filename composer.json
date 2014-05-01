@@ -2,7 +2,13 @@
 	"name": "volarvideo/cms-client-sdk-php",
 	"description": "PHP SDK for Volar Video's Client API",
 	"license": "properietary",
+	"autoload": {
+		"psr-0" : {
+			"volarvideo\\Volar" : "src"
+		}
+	},
 	"require": {
+
 		"php": ">=5.3",
 		"aws/aws-sdk-php": "~2.4"
 	}
