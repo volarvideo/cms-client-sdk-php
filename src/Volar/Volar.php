@@ -203,7 +203,7 @@ class Volar {
 			// $post = array('archive' => '@'.ltrim($file_path,'@'));
 			try
 			{
-				$uploader = new Volar\FileUploader($this);
+				$uploader = new FileUploader($this);
 				$post_params = $uploader->upload($file_path);
 			}
 			catch(Exception $e)
