@@ -9,7 +9,7 @@ class FileUploader {
 		$this->volarObject = $volarObject;
 	}
 
-	function upload($file_name)
+	function upload($file_path)
 	{
 		$res = $this->volarObject->request('api/client/broadcast/s3handshake', 'GET', array('filename' => basename($file_path)));
 		if(!$res)
@@ -21,7 +21,7 @@ class FileUploader {
 		);
 		try
 		{
-			$aws = Aws\Common\Aws::factory(array());
+			$aws = \Aws\Common\Aws::factory(array());
 			$s3 = $aws->get('s3');
 			$req = $s3->put($res['signed_url'], null, fopen($file_path, 'r'));
 			$response = $req->send();
@@ -36,4 +36,5 @@ class FileUploader {
 		}
 		return $returnVals;
 	}
+
 }
