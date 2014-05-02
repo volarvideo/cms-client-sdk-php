@@ -13,7 +13,7 @@ class FileUploader {
 	{
 		$res = $this->volarObject->request('api/client/broadcast/s3handshake', 'GET', array('filename' => basename($file_path)));
 		if(!$res)
-			throw new Exception($this->volarObject->error);
+			throw new \Exception($this->volarObject->error);
 
 		$returnVals = array(
 			'tmp_file_id' => $res['id'],
@@ -32,7 +32,7 @@ class FileUploader {
 			{
 				curl_close($ch);
 				fclose($fh);
-				throw new Exception("cURL error: ($url) ".$error);
+				throw new \Exception("cURL error: ($url) ".$error);
 			}
 			curl_close($ch);
 			fclose($fh);
@@ -55,7 +55,7 @@ class FileUploader {
 					}
 				}
 				if($err_string)
-					throw new Exception($err_string);
+					throw new \Exception($err_string);
 			}
 			echo htmlspecialchars($res);
 
@@ -68,7 +68,7 @@ class FileUploader {
 			// 	throw new Exception("Error when attempting to upload $file_path: \n".$response->json());
 			// }
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			throw $e;
 		}

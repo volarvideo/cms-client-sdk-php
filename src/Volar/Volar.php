@@ -206,7 +206,7 @@ class Volar {
 				$uploader = new FileUploader($this);
 				$post_params = $uploader->upload($file_path);
 			}
-			catch(Exception $e)
+			catch(\Exception $e)
 			{
 				$this->error = $e->getMessage();
 				return false;
