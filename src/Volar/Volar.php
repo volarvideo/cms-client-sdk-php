@@ -188,10 +188,7 @@ class Volar {
 		}
 		if(empty($file_path))
 		{
-			if(isset($params['url']))
-				return $this->request('api/client/broadcast/archive', 'POST', array(), json_encode($params));
-			else
-				return $this->request('api/client/broadcast/archive', 'GET', $params);
+			return $this->request('api/client/broadcast/archive', 'GET', $params);
 		}
 		else
 		{
@@ -211,7 +208,7 @@ class Volar {
 				$this->error = $e->getMessage();
 				return false;
 			}
-			return $this->request('api/client/broadcast/archive', 'POST', $params, json_encode($post_params));
+			return $this->request('api/client/broadcast/archive', 'GET', $params + $post_params);
 		}
 	}
 
