@@ -1,6 +1,11 @@
 <?php
 namespace Volar;
 
+/*!
+@unsorted
+@dependency This requires the AWS SDK.  You can install it by downloading the volar SDK following the instructions in the README.md file
+*/
+
 class Volar {
 	public $api_key = null;
 	public $secret = null;
@@ -10,6 +15,16 @@ class Volar {
 
 	private $error = null;
 
+	/*!
+	 *	gets list of sites
+	 *	@param array $params associative array
+	 *			recognized parameters in array:
+	 *				'api_key'			api key provided by the Volar Video system
+	 *				'secret'			secret key provided by the Volar Video system
+	 *				- optional -
+	 *				'base_url'			domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default
+	 */
+
 	public function __construct($api_key = '', $secret = '', $base_url = 'vcloud.volarvideo.com')
 	{
 		$this->api_key = $api_key;
@@ -17,12 +32,16 @@ class Volar {
 		$this->base_url = $base_url;
 	}
 
+	/*!
+	 *	gets last error
+	 *	@return string last error, or null if no errors
+	 */
 	public function getError()
 	{
 		return $this->error;
 	}
 
-	/**
+	/*!
 	 *	gets list of sites
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -41,7 +60,11 @@ class Volar {
 		return $this->request('api/client/info', 'GET', $params);
 	}
 
-	/**
+	/*!
+	 *	@methodgroup Broadcasts
+	 */
+
+	/*!
 	 *	gets list of broadcasts
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -69,7 +92,7 @@ class Volar {
 		return $this->request('api/client/broadcast', 'GET', $params);
 	}
 
-	/**
+	/*!
 	 *	creates a new broadcast
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -98,7 +121,7 @@ class Volar {
 		return $this->request('api/client/broadcast/create', 'POST', array(), $params);
 	}
 
-	/**
+	/*!
 	 *	update a new broadcast
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -160,7 +183,7 @@ class Volar {
 		return $this->request('api/client/broadcast/poster', 'POST', $params, $post);
 	}
 
-	/**
+	/*!
 	 *	archives a broadcast
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -211,8 +234,11 @@ class Volar {
 			return $this->request('api/client/broadcast/archive', 'GET', $params + $post_params);
 		}
 	}
+	/*!
+	 *	@methodgroup Video Clips
+	 */
 
-	/**
+	/*!
 	 *	gets list of video clips
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -236,7 +262,7 @@ class Volar {
 		return $this->request('api/client/videoclip', 'GET', $params);
 	}
 
-	/**
+	/*!
 	 *	creates a new video clip
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -258,7 +284,7 @@ class Volar {
 		return $this->request('api/client/videoclip/create', 'POST', array(), $params);
 	}
 
-	/**
+	/*!
 	 *	update a video clip
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -314,7 +340,7 @@ class Volar {
 		return $this->request('api/client/videoclip/poster', 'POST', $params, $post);
 	}
 
-	/**
+	/*!
 	 *	archives a video clip
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -338,12 +364,31 @@ class Volar {
 		}
 		else
 		{
-			$post = array('archive' => '@'.ltrim($file_path,'@'));
-			return $this->request('api/client/videoclip/archive', 'POST', $params, $post);
+			if(!file_exists($file_path))
+			{
+				$this->error = "\"$file_path\" does not appear to exist";
+				return false;
+			}
+			// $post = array('archive' => '@'.ltrim($file_path,'@'));
+			try
+			{
+				$uploader = new FileUploader($this);
+				$post_params = $uploader->upload($file_path);
+			}
+			catch(\Exception $e)
+			{
+				$this->error = $e->getMessage();
+				return false;
+			}
+			return $this->request('api/client/videoclip/archive', 'GET', $params + $post_params);
 		}
 	}
 
-	/**
+	/*!
+	 *	@methodgroup Meta-data Templates
+	 */
+
+	/*!
 	 *	gets list of meta-data templates
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -370,7 +415,7 @@ class Volar {
 		return $this->request('api/client/template', 'GET', $params);
 	}
 
-	/**
+	/*!
 	 *	creates a new meta-data template
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -408,7 +453,7 @@ class Volar {
 		return $this->request('api/client/template/create', 'POST', array(), $params);
 	}
 
-	/**
+	/*!
 	 *	update an existing broadcast meta-data template
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -431,7 +476,7 @@ class Volar {
 	}
 
 
-	/**
+	/*!
 	 *	delete an existing broadcast meta-data template.  note that this does not affect template data attached to broadcasts, only the template.
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -447,8 +492,11 @@ class Volar {
 		}
 		return $this->request('api/client/template/delete', 'POST', array(), $params);
 	}
+	/*!
+	 *	@methodgroup Misc. Queries
+	 */
 
-	/**
+	/*!
 	 *	gets list of sections
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -477,7 +525,7 @@ class Volar {
 		return $this->request('api/client/section', 'GET', $params);
 	}
 
-	/**
+	/*!
 	 *	gets list of playlists
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -534,36 +582,11 @@ class Volar {
 		return $this->request('api/client/info/timezones', 'GET', $params);
 	}
 
-	/**
-	 *	gets list of videos
-	 *	@param array $params associative array
-	 *			recognized parameters in array:
-	 *				- required -
-	 *				'site'				slug of site to filter to.
-	 *				- optional -
-	 *				'available'			filter based on whether the video is active or inactive.  allowed values are: 'yes', 'active', or 'available' (to get active videos - this is default behavior), 'no', 'inactive', or 'unavailable' (to get all inactive videos), and finally 'all' (to not filter on whether or not the video is set active or inactive)
-	 *				'page'				current page of listings.  pages begin at '1'
-	 *				'per_page'			number of videos to display per page
-	 *				'section_id'		id of section you wish to limit list to
-	 *				'playlist_id'		id of playlist you wish to limit list to
-	 *				'id'				id of broadcast - useful if you only want to get details of a single broadcast
-	 *				'title'				title of broadcast.  useful for searches, as this accepts incomplete titles and returns all matches.
-	 *				'autoplay'			true or false.  defaults to false.  used in embed code to prevent player from immediately playing
-	 *				'embed_width'		width (in pixels) that embed should be.  defaults to 640
-	 *				'sort_by'			data field to use to sort.  allowed fields are status, id, title, description, and playlist (only when playlist_id is supplied)
-	 *				'sort_dir'			direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending)
-	 *	@return false on failure, array on success.  if failed, $volar->getError() can be used to get last error string
+	/*!
+	 *	@methodgroup Utilities
 	 */
-	public function videos($params = array())
-	{
-		if(!isset($params['site']))
-		{
-			$this->error = 'site is required';
-			return false;
-		}
-		return $this->request('api/client/video', 'GET', $params);
-	}
-	/**
+
+	/*!
 	 *	submits request to $base_url through $route
 	 *	@param string 	$route		api uri path (not including base_url!)
 	 *	@param string 	$type		type of request.  only GET and POST are supported.  if blank, GET is assumed
@@ -608,7 +631,7 @@ class Volar {
 		return $json;
 	}
 
-	/**
+	/*!
 	 *	creates a signature
 	 *	@param string $route		api uri path (not including base_url!)
 	 *	@param string $type			type of request.  only GET and POST are supported.  if blank, GET is assumed
