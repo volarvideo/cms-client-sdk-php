@@ -167,20 +167,30 @@ class Volar {
 		return $this->request('api/client/broadcast/removeplaylist', 'GET', $params);
 	}
 
-	public function broadcast_poster($params = array(), $image_path = '', $image_name = '')
+	public function broadcast_poster($params = array(), $image_path = '')
 	{
 		if(!isset($params['id']))
 		{
 			$this->error = 'id is required';
 			return false;
 		}
-		$post = array('api_poster' => '@'.ltrim($image_path,'@'));
-		if($image_name)
+		if(!file_exists($image_path))
 		{
-			$image_name = str_replace(array(';','"'), '', $image_name);
-			$post['api_poster'] .= ';filename='.$image_name;
+				$this->error = "\"$file_path\" does not appear to exist";
+				return false;
 		}
-		return $this->request('api/client/broadcast/poster', 'POST', $params, $post);
+		try
+		{
+			$uploader = new FileUploader($this);
+			$post_params = $uploader->upload($image_path);
+		}
+		catch(\Exception $e)
+		{
+			echo __LINE__;
+			$this->error = $e->getMessage();
+			return false;
+		}
+		return $this->request('api/client/broadcast/poster', 'GET', $params + $post_params);
 	}
 
 	/*!
@@ -324,20 +334,30 @@ class Volar {
 		return $this->request('api/client/videoclip/removeplaylist', 'GET', $params);
 	}
 
-	public function videoclip_poster($params = array(), $image_path = '', $image_name = '')
+	public function videoclip_poster($params = array(), $image_path = '')
 	{
 		if(!isset($params['id']))
 		{
 			$this->error = 'id is required';
 			return false;
 		}
-		$post = array('api_poster' => '@'.ltrim($image_path,'@'));
-		if($image_name)
+		if(!file_exists($image_path))
 		{
-			$image_name = str_replace(array(';','"'), '', $image_name);
-			$post['api_poster'] .= ';filename='.$image_name;
+				$this->error = "\"$file_path\" does not appear to exist";
+				return false;
 		}
-		return $this->request('api/client/videoclip/poster', 'POST', $params, $post);
+		try
+		{
+			$uploader = new FileUploader($this);
+			$post_params = $uploader->upload($image_path);
+		}
+		catch(\Exception $e)
+		{
+			echo __LINE__;
+			$this->error = $e->getMessage();
+			return false;
+		}
+		return $this->request('api/client/videoclip/poster', 'GET', $params + $post_params);
 	}
 
 	/*!
