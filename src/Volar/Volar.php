@@ -1,28 +1,56 @@
 <?php
+/**
+ * This requires the AWS SDK.  You can install it by downloading the volar SDK following the instructions in the README.md file
+ */
+
 namespace Volar;
 
-/*!
-@unsorted
-@dependency This requires the AWS SDK.  You can install it by downloading the volar SDK following the instructions in the README.md file
-*/
 
 class Volar {
+	/**
+	 *	api key provided by the Volar Video system for your account
+	 *	@var string $api_key
+	 */
 	public $api_key = null;
+
+	/**
+	 *	secret key provided by the Volar Video system for your account
+	 *	@var string $secret
+	 */
 	public $secret = null;
+
+	/**
+	 *	domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default
+	 *	@var string $base_url
+	 */
 	public $base_url = null;
+
+	/**
+	 *	set to true if you wish to use https to communicate with the api.
+	 *	@var bool $secure
+	 */
 	public $secure = false;
+
+	/**
+	 *	will contain debug information about the last communication made to the api.
+	 *	@var string $debug
+	 */
 	public $debug = null;
 
+	/**
+	 *	@internal
+	 *	error container
+	 *	@var string $error
+	 */
 	private $error = null;
 
-	/*!
-	 *	gets list of sites
-	 *	@param array $params associative array
-	 *			recognized parameters in array:
-	 *				'api_key'			api key provided by the Volar Video system
-	 *				'secret'			secret key provided by the Volar Video system
-	 *				- optional -
-	 *				'base_url'			domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default
+	/**
+	 *	Constructor for the volar video sdk
+	 *	@example construct object
+	 *		$v = new Volar($api_key, $secret, $base_url);
+	 *	@param string $api_key api key provided by the Volar Video system for your account
+	 *	@param string $secret secret key provided by the Volar Video system for your account
+	 *	@param string $base_url domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default
 	 */
 
 	public function __construct($api_key = '', $secret = '', $base_url = 'vcloud.volarvideo.com')
@@ -32,7 +60,7 @@ class Volar {
 		$this->base_url = $base_url;
 	}
 
-	/*!
+	/**
 	 *	gets last error
 	 *	@return string last error, or null if no errors
 	 */
@@ -41,18 +69,18 @@ class Volar {
 		return $this->error;
 	}
 
-	/*!
+	/**
 	 *	gets list of sites
 	 *	@param array $params associative array
-	 *			recognized parameters in array:
-	 *				- optional -
-	 *				'page'				current page of listings.  pages begin at '1'
-	 *				'per_page'			number of broadcasts to display per page
-	 *				'id'				id of site - useful if you only want to get details of a single site
-	 *				'slug'				slug of site.  useful for searches, as this accepts incomplete titles and returns all matches.
-	 *				'title'				title of site.  useful for searches, as this accepts incomplete titles and returns all matches.
-	 *				'sort_by'			data field to use to sort.  allowed fields are status, id, title, description. defaults to title
-	 *				'sort_dir'			direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc
+	 *		recognized parameters in array:
+	 *			- optional -
+	 *			'page'				current page of listings.  pages begin at '1'
+	 *			'per_page'			number of broadcasts to display per page
+	 *			'id'				id of site - useful if you only want to get details of a single site
+	 *			'slug'				slug of site.  useful for searches, as this accepts incomplete titles and returns all matches.
+	 *			'title'				title of site.  useful for searches, as this accepts incomplete titles and returns all matches.
+	 *			'sort_by'			data field to use to sort.  allowed fields are status, id, title, description. defaults to title
+	 *			'sort_dir'			direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc
 	 *	@return false on failure, array on success.  if failed, $volar->getError() can be used to get last error string
 	 */
 	public function sites($params = array())
@@ -60,12 +88,21 @@ class Volar {
 		return $this->request('api/client/info', 'GET', $params);
 	}
 
-	/*!
-	 *	@methodgroup Broadcasts
+	/**
+	 *	@category Broadcasts
 	 */
 
-	/*!
+	/**
 	 *	gets list of broadcasts
+	 *	@example this example pulls page 1 of broadcasts from site 'mysite' in the 'scheduled' state
+	 *		if($result = $v->broadcasts(array(
+	 *				'site' => 'mysite',
+	 *				'list' => 'scheduled',
+	 *				'page' => 1
+	 *			)))
+	 *		{
+	 *			var_dump($result['broadcasts']);
+	 *		}
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
 	 *				- required -
@@ -92,7 +129,7 @@ class Volar {
 		return $this->request('api/client/broadcast', 'GET', $params);
 	}
 
-	/*!
+	/**
 	 *	creates a new broadcast
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -121,7 +158,7 @@ class Volar {
 		return $this->request('api/client/broadcast/create', 'POST', array(), $params);
 	}
 
-	/*!
+	/**
 	 *	update a new broadcast
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -148,6 +185,23 @@ class Volar {
 		return $this->request('api/client/broadcast/update', 'POST', array(), $params);
 	}
 
+	/**
+	 *	delete a broadcast
+	 *	@example
+	 *		// find broadcast with id 123 and delete it.
+	 *		$result = $v->broadcast_delete(array(
+	 *			'id' => 123,
+	 *			'site' => 'mysite'
+	 *		));
+	 *		var_dump($result['success']);	//will be True of False
+	 *	@param array $params arguments related to selecting and deleting a broadcast
+	 *		The following fields are required
+	 *		- 'id' : id of broadcast
+	 *		- 'site' : slug of site broadcast is owned by
+	 *	@return array indicates success or failure.  if failed, check the getError() function for last error
+	 *		'success' => True/False
+	*/
+
 	public function broadcast_delete($params = '')
 	{
 		if(is_array($params) && count($params) > 0)
@@ -157,16 +211,66 @@ class Volar {
 		return $this->request('api/client/broadcast/delete', 'POST', array(), $params);
 	}
 
+	/**
+	 *	assign a broadcast to a playlist
+	 *	@example
+	 *		// assign broadcast with id 1 to playlist with id 12.  note that
+	 *		// both must be under the 'mysite' site.
+	 *		$result = $v->broadcast_assign_playlist(array(
+	 *			'id' => 1,
+	 *			'site' => 'mysite',
+	 *			'playlist_id' => 12
+	 *		));
+	 *		var_dump($result['success']);	//will be True of False
+	 *	@param array $params arguments related to the attachment of broadcast to playlist.
+	 *		All of the following are required
+	 *			- 'id' : id of broadcast
+	 *			- 'site' : slug of site broadcast and playlist belong to
+	 *			- 'playlist_id' : id of playlist
+	 *	@return array indicates success or failure.  if failed, check the getError() function for last error
+	 *		'success' => True/False
+	*/
 	public function broadcast_assign_playlist($params = array())
 	{
 		return $this->request('api/client/broadcast/assignplaylist', 'GET', $params);
 	}
 
+	/**
+	 *	remove a broadcast from a playlist
+	 *	@example
+	 *		// remove broadcast with id 1 from playlist with id 12.  note that
+	 *		// both must be under the 'mysite' site.
+	 *		$result = $v->broadcast_remove_playlist(array(
+	 *			'id' => 1,
+	 *			'site' => 'mysite',
+	 *			'playlist_id' => 12
+	 *		));
+	 *		var_dump($result['success']);	//will be True of False
+	 *
+	 *	@param array $params arguments arguments related to the removal of broadcast from a playlist.
+	 *		All of the following are required
+	 *			- 'id' : id of broadcast
+	 *			- 'site' : slug of site broadcast and playlist belong to
+	 *			- 'playlist_id' : id of playlist
+	 *	@return array indicates success or failure.  if failed, check the getError() function for last error
+	 *		'success' => True/False
+	 */
 	public function broadcast_remove_playlist($params = array())
 	{
 		return $this->request('api/client/broadcast/removeplaylist', 'GET', $params);
 	}
 
+	/**
+	 *	uploads an image file as the poster for a broadcast.
+	 *	@param array $params associative array containing references to the broadcast you wish to upload a file for
+	 *		- 'id' : id of broadcast
+	 *		- 'site' : slug of site broadcast belongs to
+	 *	@param string $image_path Path to file you wish to upload.
+	 *		if supplied, this file is uploaded to the server and attached
+	 *		to the broadcast as an image
+	 *	@return array indicates success or failure.  if failed, check the getError() function for last error
+	 *		'success' => True/False
+	 */
 	public function broadcast_poster($params = array(), $image_path = '')
 	{
 		if(!isset($params['id']))
@@ -176,7 +280,7 @@ class Volar {
 		}
 		if(!file_exists($image_path))
 		{
-				$this->error = "\"$file_path\" does not appear to exist";
+				$this->error = "\"$image_path\" does not appear to exist";
 				return false;
 		}
 		try
@@ -193,7 +297,7 @@ class Volar {
 		return $this->request('api/client/broadcast/poster', 'GET', $params + $post_params);
 	}
 
-	/*!
+	/**
 	 *	archives a broadcast
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -244,11 +348,11 @@ class Volar {
 			return $this->request('api/client/broadcast/archive', 'GET', $params + $post_params);
 		}
 	}
-	/*!
-	 *	@methodgroup Video Clips
+	/**
+	 *	@category Video Clips
 	 */
 
-	/*!
+	/**
 	 *	gets list of video clips
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -272,7 +376,7 @@ class Volar {
 		return $this->request('api/client/videoclip', 'GET', $params);
 	}
 
-	/*!
+	/**
 	 *	creates a new video clip
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -294,7 +398,7 @@ class Volar {
 		return $this->request('api/client/videoclip/create', 'POST', array(), $params);
 	}
 
-	/*!
+	/**
 	 *	update a video clip
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -360,7 +464,7 @@ class Volar {
 		return $this->request('api/client/videoclip/poster', 'GET', $params + $post_params);
 	}
 
-	/*!
+	/**
 	 *	archives a video clip
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -404,11 +508,11 @@ class Volar {
 		}
 	}
 
-	/*!
-	 *	@methodgroup Meta-data Templates
+	/**
+	 *	@category Meta-data Templates
 	 */
 
-	/*!
+	/**
 	 *	gets list of meta-data templates
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -435,7 +539,7 @@ class Volar {
 		return $this->request('api/client/template', 'GET', $params);
 	}
 
-	/*!
+	/**
 	 *	creates a new meta-data template
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -473,7 +577,7 @@ class Volar {
 		return $this->request('api/client/template/create', 'POST', array(), $params);
 	}
 
-	/*!
+	/**
 	 *	update an existing broadcast meta-data template
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -496,7 +600,7 @@ class Volar {
 	}
 
 
-	/*!
+	/**
 	 *	delete an existing broadcast meta-data template.  note that this does not affect template data attached to broadcasts, only the template.
 	 *	@param mixed $params associative array or json string
 	 *		recognized parameters:
@@ -512,11 +616,11 @@ class Volar {
 		}
 		return $this->request('api/client/template/delete', 'POST', array(), $params);
 	}
-	/*!
-	 *	@methodgroup Misc. Queries
+	/**
+	 *	@category Misc. Queries
 	 */
 
-	/*!
+	/**
 	 *	gets list of sections
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -545,7 +649,7 @@ class Volar {
 		return $this->request('api/client/section', 'GET', $params);
 	}
 
-	/*!
+	/**
 	 *	gets list of playlists
 	 *	@param array $params associative array
 	 *			recognized parameters in array:
@@ -597,16 +701,22 @@ class Volar {
 		return $this->request('api/client/playlist/delete', 'POST', array(), $params);
 	}
 
+	/**
+	 *	@internal
+	 *	Get list of timezones
+	 *	@deprecated
+	 */
 	public function timezones($params = array())
 	{
 		return $this->request('api/client/info/timezones', 'GET', $params);
 	}
 
-	/*!
-	 *	@methodgroup Utilities
+	/**
+	 *	@category Utilities
 	 */
 
-	/*!
+	/**
+	 *	@internal
 	 *	submits request to $base_url through $route
 	 *	@param string 	$route		api uri path (not including base_url!)
 	 *	@param string 	$type		type of request.  only GET and POST are supported.  if blank, GET is assumed
@@ -651,7 +761,8 @@ class Volar {
 		return $json;
 	}
 
-	/*!
+	/**
+	 *	@internal
 	 *	creates a signature
 	 *	@param string $route		api uri path (not including base_url!)
 	 *	@param string $type			type of request.  only GET and POST are supported.  if blank, GET is assumed
@@ -690,7 +801,10 @@ class Volar {
 
 		return $signature;
 	}
-
+	/**
+	 *	@internal
+	 *	execute connection & transmission of parameters
+	 */
 	public function execute($url, $type, $post_body, $content_type = '', $curl_options = array())
 	{
 		$type = strtoupper($type);
