@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Volar.html">\Volar</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">16</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1013653027"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1013653027" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1853768056"></a>
+                                <a href="../namespaces/Volar.html" style="margin-left: 30px; padding-left: 0">Volar</a>
+            </div>
+            <div id="namespace-1853768056" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Volar.Volar.html">Volar</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Volar.html">\Volar</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Volar</small>Volar</h1>
+                    <p><em></em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Volar.Volar.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_getError" class="">getError()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_sites" class="">sites()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcasts" class="">broadcasts()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_create" class="">broadcast_create()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_update" class="">broadcast_update()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_delete" class="">broadcast_delete()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_assign_playlist" class="">broadcast_assign_playlist()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_remove_playlist" class="">broadcast_remove_playlist()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_poster" class="">broadcast_poster()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcast_archive" class="">broadcast_archive()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclips" class="">videoclips()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_create" class="">videoclip_create()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_update" class="">videoclip_update()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_delete" class="">videoclip_delete()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_assign_playlist" class="">videoclip_assign_playlist()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_remove_playlist" class="">videoclip_remove_playlist()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_poster" class="">videoclip_poster()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_videoclip_archive" class="">videoclip_archive()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_templates" class="">templates()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_template_create" class="">template_create()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_template_update" class="">template_update()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_template_delete" class="">template_delete()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_sections" class="">sections()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_playlists" class="">playlists()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_playlist_create" class="">playlist_create()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_playlist_update" class="">playlist_update()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_playlist_delete" class="">playlist_delete()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Volar.Volar.html#property_api_key" class="">$api_key</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#property_secret" class="">$secret</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#property_base_url" class="">$base_url</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#property_secure" class="">$secure</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#property_debug" class="">$debug</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Volar.html"><div class="path-wrapper">Volar.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper"></div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Volar\Volar</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_api_key" name="property_api_key" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$api_key</h3>
+                <pre class="signature">$api_key : string</pre>
+                <p><em>api key provided by the Volar Video system for your account</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_secret" name="property_secret" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$secret</h3>
+                <pre class="signature">$secret : string</pre>
+                <p><em>secret key provided by the Volar Video system for your account</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_base_url" name="property_base_url" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$base_url</h3>
+                <pre class="signature">$base_url : string</pre>
+                <p><em>domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_secure" name="property_secure" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$secure</h3>
+                <pre class="signature">$secure : bool</pre>
+                <p><em>set to true if you wish to use https to communicate with the api.</em></p>
+                
+
+                                <h4>Type</h4>
+                bool
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_debug" name="property_debug" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$debug</h3>
+                <pre class="signature">$debug : string</pre>
+                <p><em>will contain debug information about the last communication made to the api.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$api_key</span>, string <span class="argument">$secret</span>, string <span class="argument">$base_url</span>)</pre>
+                <p><em>Constructor for the volar video sdk</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$api_key </td>
+                                <td><p>api key provided by the Volar Video system for your account</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$secret </td>
+                                <td><p>secret key provided by the Volar Video system for your account</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$base_url </td>
+                                <td><p>domain name that the api needs to point to.  Typically vcloud.volarvideo.com, which is the default</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>object</p>
+<pre><code>$v = new Volar($api_key, $secret, $base_url);</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getError" name="method_getError" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getError() : string</pre>
+                <p><em>gets last error</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>last error, or null if no errors</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sites" name="method_sites" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sites()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sites(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of sites</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>recognized parameters in array:
+    - optional -
+    'page'                current page of listings.  pages begin at '1'
+    'per_page'            number of broadcasts to display per page
+    'id'                id of site - useful if you only want to get details of a single site
+    'slug'                slug of site.  useful for searches, as this accepts incomplete titles and returns all matches.
+    'title'                title of site.  useful for searches, as this accepts incomplete titles and returns all matches.
+    'sort_by'            data field to use to sort.  allowed fields are status, id, title, description. defaults to title
+    'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcasts" name="method_broadcasts" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcasts()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcasts(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of broadcasts</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site'                slug of site to filter to.
+        - optional -
+        'list'                type of list.  allowed values are 'all', 'archived', 'scheduled' or 'upcoming', 'upcoming_or_streaming', 'streaming' or 'live'
+        'page'                current page of listings.  pages begin at '1'
+        'per_page'            number of broadcasts to display per page
+        'section_id'        id of section you wish to limit list to
+        'playlist_id'        id of playlist you wish to limit list to
+        'id'                id of broadcast - useful if you only want to get details of a single broadcast
+        'title'                title of broadcast.  useful for searches, as this accepts incomplete titles and returns all matches.
+        'autoplay'            true or false.  defaults to false.  used in embed code to prevent player from immediately playing
+        'embed_width'        width (in pixels) that embed should be.  defaults to 640
+        'before'             return broadcasts that occur before specified date.  can be a date string or integer timestamp.  note that date strings should be in standard formats.
+        'after'             return broadcasts that occur after specified date.  can be a date string or integer timestamp.  note that date strings should be in standard formats.
+                                note - if both before and after are included, broadcasts between the supplied dates are returned.
+        'sort_by'            data field to use to sort.  allowed fields are date, status, id, title, description. defaults to date
+        'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to desc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>example pulls page 1 of broadcasts from site 'mysite' in the 'scheduled' state</p>
+<pre><code>if($result = $v-&gt;broadcasts(array(
+        'site' =&gt; 'mysite',
+        'list' =&gt; 'scheduled',
+        'page' =&gt; 1
+    )))
+{
+    var_dump($result['broadcasts']);
+}</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_create" name="method_broadcast_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_create(mixed <span class="argument">$params</span>)</pre>
+                <p><em>creates a new broadcast</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site' OR 'sites'    slug of site to filter to.
+                                if passing 'sites', users can include a comma-delimited list of sites.
+                                results will reflect all broadcasts in the listed sites.
+        'title'                title of the broadcast
+        'contact_name'        contact name of person we should contact if we detect problems with this broadcast
+        'contact_phone'        phone we should use to contact contact_name person
+        'contact_sms'        sms number we should use to send text messages to contact_name person
+        'contact_email'        email address we should use to send emails to contact_name person
+            * note that contact_phone can be omitted if contact_sms is supplied, and vice-versa
+    - optional -
+        'date'                date of broadcast. Will default to current time.  can be a date string or integer timestamp.  note that date strings should be in standard formats.
+        'timezone'            allows you to specify what timezone this date refers to. will default to the UTC timezone. For a list of accepted timezones, see the Supported Timezones api call.
+        'description'        html formatted text for the description of the broadcast. matches.
+        'section_id'        id of section to assign broadcast to. will default to 'General'.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_update" name="method_broadcast_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_update(mixed <span class="argument">$params</span>)</pre>
+                <p><em>update a new broadcast</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site'                slug of site to assign broadcast to. note that if the api user does not have permission to create broadcasts on the given site, an error will be produced.
+        'id'                id of broadcast that you're updating
+    - optional -
+        'title'                title of the broadcast
+        'date'                date of broadcast. Will default to current time.  can be a date string or integer timestamp.  note that date strings should be in standard formats.
+        'timezone'            allows you to specify what timezone this date refers to. will default to the UTC timezone. For a list of accepted timezones, see the Supported Timezones api call.
+        'description'        html formatted text for the description of the broadcast. matches.
+        'section_id'        id of section to assign broadcast to. will default to 'General'.
+        'contact_name'        contact name of person we should contact if we detect problems with this broadcast
+        'contact_phone'        phone we should use to contact contact_name person
+        'contact_sms'        sms number we should use to send text messages to contact_name person
+        'contact_email'        email address we should use to send emails to contact_name person</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_delete" name="method_broadcast_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_delete(array <span class="argument">$params</span>) : array</pre>
+                <p><em>delete a broadcast</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>arguments related to selecting and deleting a broadcast</p>
+<pre><code>The following fields are required
+- 'id' : id of broadcast
+- 'site' : slug of site broadcast is owned by</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>indicates success or failure.  if failed, check the getError() function for last error</p>
+<pre><code>'success' =&gt; True/False</code></pre>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>find broadcast with id 123 and delete it.</p>
+<pre><code>$result = $v-&gt;broadcast_delete(array(
+    'id' =&gt; 123,
+    'site' =&gt; 'mysite'
+));
+var_dump($result['success']);    //will be True of False</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_assign_playlist" name="method_broadcast_assign_playlist" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_assign_playlist()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_assign_playlist(array <span class="argument">$params</span>) : array</pre>
+                <p><em>assign a broadcast to a playlist</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>arguments related to the attachment of broadcast to playlist.</p>
+<pre><code>All of the following are required
+    - 'id' : id of broadcast
+    - 'site' : slug of site broadcast and playlist belong to
+    - 'playlist_id' : id of playlist</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>indicates success or failure.  if failed, check the getError() function for last error</p>
+<pre><code>'success' =&gt; True/False</code></pre>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>assign broadcast with id 1 to playlist with id 12.  note that</p>
+<pre><code>// both must be under the 'mysite' site.
+$result = $v-&gt;broadcast_assign_playlist(array(
+    'id' =&gt; 1,
+    'site' =&gt; 'mysite',
+    'playlist_id' =&gt; 12
+));
+var_dump($result['success']);    //will be True of False</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_remove_playlist" name="method_broadcast_remove_playlist" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_remove_playlist()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_remove_playlist(array <span class="argument">$params</span>) : array</pre>
+                <p><em>remove a broadcast from a playlist</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>arguments arguments related to the removal of broadcast from a playlist.</p>
+<pre><code>All of the following are required
+    - 'id' : id of broadcast
+    - 'site' : slug of site broadcast and playlist belong to
+    - 'playlist_id' : id of playlist</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>indicates success or failure.  if failed, check the getError() function for last error</p>
+<pre><code>'success' =&gt; True/False</code></pre>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>remove broadcast with id 1 from playlist with id 12.  note that</p>
+<pre><code>// both must be under the 'mysite' site.
+$result = $v-&gt;broadcast_remove_playlist(array(
+    'id' =&gt; 1,
+    'site' =&gt; 'mysite',
+    'playlist_id' =&gt; 12
+));
+var_dump($result['success']);    //will be True of False</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_poster" name="method_broadcast_poster" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_poster()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_poster(array <span class="argument">$params</span>, string <span class="argument">$image_path</span>) : array</pre>
+                <p><em>uploads an image file as the poster for a broadcast.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array containing references to the broadcast you wish to upload a file for</p>
+<pre><code>- 'id' : id of broadcast
+- 'site' : slug of site broadcast belongs to</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$image_path </td>
+                                <td><p>Path to file you wish to upload.</p>
+<pre><code>if supplied, this file is uploaded to the server and attached
+to the broadcast as an image</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>indicates success or failure.  if failed, check the getError() function for last error</p>
+<pre><code>'success' =&gt; True/False</code></pre>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcast_archive" name="method_broadcast_archive" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcast_archive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcast_archive(array <span class="argument">$params</span>, string <span class="argument">$file_path</span>) : false</pre>
+                <p><em>archives a broadcast</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site'                slug of site to filter to.
+        'id'                id of broadcast
+        - optional -
+        'url'                url of video you wish to use to use to archive to this broadcast
+                            Volar's system will download this video for transcoding, so this video file
+                            MUST be accessible by external systems.  If it isn't available, the archival
+                            process will fail, even if this function returns a success.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file_path </td>
+                                <td><p>(optional) path to file you wish to upload.</p>
+<pre><code>        Only necessary if you wish to upload a new video file to an existing broadcast and you do not
+        have a url to a file (see params).
+        If your broadcast was streamed via a different method (RTMP or production truck) &amp; you wish to
+        archive the existing video data, omit this argument.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclips" name="method_videoclips" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclips()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclips(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of video clips</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site'                slug of site to filter to.
+        - optional -
+        'page'                current page of listings.  pages begin at '1'
+        'per_page'            number of broadcasts to display per page
+        'section_id'        id of section you wish to limit list to
+        'playlist_id'        id of playlist you wish to limit list to
+        'id'                id of video clip - useful if you only want to get details of a single video clip
+        'title'                title of video clip.  useful for searches, as this accepts incomplete titles and returns all matches.
+        'autoplay'            true or false.  defaults to false.  used in embed code to prevent player from immediately playing
+        'embed_width'        width (in pixels) that embed should be.  defaults to 640
+        'sort_by'            data field to use to sort.  allowed fields are date_modified, id, title, description. defaults to date_modified
+        'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to desc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_create" name="method_videoclip_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_create(mixed <span class="argument">$params</span>)</pre>
+                <p><em>creates a new video clip</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site' OR 'sites'    slug of site to filter to.
+                                if passing 'sites', users can include a comma-delimited list of sites.
+                                results will reflect all broadcasts in the listed sites.
+        'title'                title of the video clip
+    - optional -
+        'description'        html formatted text for the description of the video clip. matches.
+        'section_id'        id of section to assign video clip to. will default to 'General'.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_update" name="method_videoclip_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_update(mixed <span class="argument">$params</span>)</pre>
+                <p><em>update a video clip</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site'                slug of site to assign video clip to. note that if the api user does not have permission to create video clips on the given site, an error will be produced.
+        'id'                id of video clip that you're updating
+    - optional -
+        'title'                title of the video clip
+        'description'        html formatted text for the description of the video clip. matches.
+        'section_id'        id of section to assign video clip to.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_delete" name="method_videoclip_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_delete( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_assign_playlist" name="method_videoclip_assign_playlist" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_assign_playlist()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_assign_playlist( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_remove_playlist" name="method_videoclip_remove_playlist" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_remove_playlist()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_remove_playlist( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_poster" name="method_videoclip_poster" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_poster()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_poster( <span class="argument">$params</span>,  <span class="argument">$image_path</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$image_path </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_videoclip_archive" name="method_videoclip_archive" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">videoclip_archive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">videoclip_archive(array <span class="argument">$params</span>, string <span class="argument">$file_path</span>) : false</pre>
+                <p><em>archives a video clip</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site'                slug of site to filter to.
+        'id'                id of video clip</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file_path </td>
+                                <td><p>(optional) path to file you wish to upload.</p>
+<pre><code>        Only necessary if you wish to upload a new video file to an existing video clip.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_templates" name="method_templates" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">templates()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">templates(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of meta-data templates</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site'
+        - optional -
+        'page'                current page of listings.  pages begin at '1'
+        'per_page'            number of broadcasts to display per page
+        'broadcast_id'        id of broadcast you wish to limit list to.
+        'section_id'        id of section you wish to limit list to.
+        'id'                id of template - useful if you only want to get details of a single template
+        'title'                title of template.  useful for searches, as this accepts incomplete titles and returns all matches.
+        'sort_by'            data field to use to sort.  allowed fields are id, title, description, date_modified. defaults to title
+        'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_template_create" name="method_template_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">template_create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">template_create(mixed <span class="argument">$params</span>)</pre>
+                <p><em>creates a new meta-data template</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site'
+        'title'                title of the broadcast
+        'data'                array of data fields assigned to template.  should be in format:
+                                array(
+                                    array(
+                                        "title" : (string) "field title",
+                                        "type" : (string) "type of field",
+                                        "options" : array(...)    //only include if type supports
+                                    ),
+                                    ...
+                                )
+                            supported types are:
+                                    'single-line' - single line of text
+                                'multi-line' - multiple-lines of text, option 'rows' (not required) is number of lines html should display as.  ex: "options": array('rows' =&gt; 4)
+                                'checkbox' - togglable field.  value will be the title of the field.  no options.
+                                'checkbox-list' - list of togglable fields.  values should be included in 'options' array.  ex: "options" : array("option 1", "option 2", ...)
+                                'radio' - list of selectable fields, although only 1 can be selected at at time.  values should be included in 'options' array.  ex: "options" : array("option 1", "option 2", ...)
+                                'dropdown' - same as radio, but displayed as a dropdown.  values should be included in 'options' array.  ex: "options" : array("option 1", "option 2", ...)
+                                'country' - dropdown containing country names.  if you wish to specify default value, include "default_select".  this should not be passed as an option, but as a seperate value attached to the field, and accepts 2-character country abbreviation.
+                                'state' - dropdown containing united states state names.  if you wish to specify default value, include "default_select".  this should not be passed as an option, but as a seperate value attached to the field, and accepts 2-character state abbreviation.
+    - optional -
+        'description'        text used to describe the template.
+        'section_id'        id of section to assign broadcast to. will default to 'General'.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_template_update" name="method_template_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">template_update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">template_update(mixed <span class="argument">$params</span>)</pre>
+                <p><em>update an existing broadcast meta-data template</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site'                slug of site to assign broadcast to. note that if the api user does not have permission to create broadcasts on the given site, an error will be produced.
+        'id'                id of broadcast that you're updating
+    - optional -
+        'title'                title of the broadcast
+        'data'                array of data fields assigned to template.  see template_create() for format
+        'description'        text for the description of the template.
+        'section_id'        id of section to assign broadcast to.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_template_delete" name="method_template_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">template_delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">template_delete(mixed <span class="argument">$params</span>)</pre>
+                <p><em>delete an existing broadcast meta-data template.  note that this does not affect template data attached to broadcasts, only the template.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params </td>
+                                <td><p>associative array or json string</p>
+<pre><code>recognized parameters:
+    - required -
+        'site'                slug of site to assign broadcast to. note that if the api user does not have permission to create broadcasts on the given site, an error will be produced.
+        'id'                id of broadcast that you're updating</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sections" name="method_sections" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sections()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sections(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of sections</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site' OR 'sites'    slug of site to filter to.
+                                if passing 'sites', users can include a comma-delimited list of sites.
+                                results will reflect all sections in the listed sites.
+        - optional -
+        'page'                current page of listings.  pages begin at '1'
+        'per_page'            number of broadcasts to display per page
+        'broadcast_id'        id of broadcast you wish to limit list to.  will always return 1
+        'video_id'            id of video you wish to limit list to.  will always return 1.  note this is not fully supported yet.
+        'id'                id of section - useful if you only want to get details of a single section
+        'title'                title of section.  useful for searches, as this accepts incomplete titles and returns all matches.
+        'sort_by'            data field to use to sort.  allowed fields are id, title. defaults to title
+        'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_playlists" name="method_playlists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">playlists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">playlists(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of playlists</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required -
+        'site' OR 'sites'    slug of site to filter to.
+                                if passing 'sites', users can include a comma-delimited list of sites.
+                                results will reflect all playlists in the listed sites.
+        - optional -
+        'page'                current page of listings.  pages begin at '1'
+        'per_page'            number of broadcasts to display per page
+        'broadcast_id'        id of broadcast you wish to limit list to.
+        'video_id'            id of video you wish to limit list to.  note this is not fully supported yet.
+        'section_id'        id of section you wish to limit list to
+        'id'                id of playlist - useful if you only want to get details of a single playlist
+        'title'                title of playlist.  useful for searches, as this accepts incomplete titles and returns all matches.
+        'sort_by'            data field to use to sort.  allowed fields are id, title. defaults to title
+        'sort_dir'            direction of sort.  allowed values are 'asc' (ascending) and 'desc' (descending). defaults to asc</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_playlist_create" name="method_playlist_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">playlist_create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">playlist_create( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_playlist_update" name="method_playlist_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">playlist_update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">playlist_update( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_playlist_delete" name="method_playlist_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">playlist_delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">playlist_delete( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Volar.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Volar.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Volar.html">\Volar</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 19th, 2014 at 11:20.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
