@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">16</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">17</span>
                                 </a>
                             </li>
                             <li>
@@ -144,19 +144,19 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1013653027"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1983596982"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1013653027" class="accordion-body collapse in">
+            <div id="namespace-1983596982" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1853768056"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-212631625"></a>
                                 <a href="../namespaces/Volar.html" style="margin-left: 30px; padding-left: 0">Volar</a>
             </div>
-            <div id="namespace-1853768056" class="accordion-body collapse ">
+            <div id="namespace-212631625" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -210,6 +210,7 @@
                                                                     <a href="../classes/Volar.Volar.html#method_getError" class="">getError()</a><br />
                                                                     <a href="../classes/Volar.Volar.html#method_sites" class="">sites()</a><br />
                                                                     <a href="../classes/Volar.Volar.html#method_broadcasts" class="">broadcasts()</a><br />
+                                                                    <a href="../classes/Volar.Volar.html#method_broadcasts_deleted" class="">broadcasts_deleted()</a><br />
                                                                     <a href="../classes/Volar.Volar.html#method_broadcast_create" class="">broadcast_create()</a><br />
                                                                     <a href="../classes/Volar.Volar.html#method_broadcast_update" class="">broadcast_update()</a><br />
                                                                     <a href="../classes/Volar.Volar.html#method_broadcast_delete" class="">broadcast_delete()</a><br />
@@ -617,6 +618,72 @@
     )))
 {
     var_dump($result['broadcasts']);
+}</code></pre>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_broadcasts_deleted" name="method_broadcasts_deleted" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">broadcasts_deleted()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">broadcasts_deleted(array <span class="argument">$params</span>) : false</pre>
+                <p><em>gets list of broadcasts that have been deleted
+	Note that this list is always sorted in descending order of when they were deleted, and the returned information is substantially more
+	sparse than what the broadcasts() call returns.  This is primarily due to the fact that the record of the broadcast has been removed from
+	the server, and only a subset of information remains.  This call is useful to those that want to get a list of broadcasts that need
+	to be removed from their own servers</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>associative array</p>
+<pre><code>    recognized parameters in array:
+        - required if not authenticated.  If you use the sdk, it will authenticate you anyway :) -
+        'site'                slug of site to filter to.
+        OR
+        'sites'                comma-delimited list of site slugs to filter to.
+        - optional -
+        'page'                current page of listings.  pages begin at '1', and this is the default value
+        'per_page'            number of deleted broadcasts to display per page.  Default is '25'
+        'id'                id of deleted broadcast - useful if you only want to get details of a single deleted broadcast
+        'date_deleted_after'    Instructs the CMS to return broadcast that have been deleted AFTER the given date.  Can be a date string or integer timestamp.  Note that date strings should be in standard formats.
+        'date_deleted_before'    Instructs the CMS to return broadcast that have been deleted BEFORE the given date.  Can be a date string or integer timestamp.  Note that date strings should be in standard formats.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    false
+                                            &mdash; <p>on failure, array on success.  if failed, $volar->getError() can be used to get last error string</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            example
+                        </th>
+                        <td>
+                                                                                            <p>example pulls page 1 of deleted broadcasts from site 'mysite' that have been deleted since june 1st, 2014 (UTC time)</p>
+<pre><code>if($result = $v-&gt;broadcasts_deleted(array(
+        'site' =&gt; 'mysite',
+        'page' =&gt; 1,
+        'date_deleted_after' =&gt; '2014-06-01'
+    )))
+{
+    var_dump($result['deleted']);
 }</code></pre>
                                                     </td>
                     </tr>
@@ -1733,7 +1800,7 @@ to the broadcast as an image</code></pre></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 19th, 2014 at 11:20.
+                    on August 7th, 2014 at 11:38.
                 </section>
             </section>
         </section>

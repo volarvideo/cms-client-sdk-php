@@ -1,7 +1,10 @@
 <?php
-/**
- * This requires the AWS SDK.  You can install it by downloading the volar SDK following the instructions in the README.md file
- */
+namespace Volar;
+
+/*!
+@unsorted
+@dependency This requires the AWS SDK.  You can install it by downloading the volar SDK following the instructions in the README.md file
+*/
 
 namespace Volar;
 
@@ -127,6 +130,40 @@ class Volar {
 	public function broadcasts($params = array())
 	{
 		return $this->request('api/client/broadcast', 'GET', $params);
+	}
+
+	/**
+	 *	gets list of broadcasts that have been deleted
+	 *		Note that this list is always sorted in descending order of when they were deleted, and the returned information is substantially more
+	 *		sparse than what the broadcasts() call returns.  This is primarily due to the fact that the record of the broadcast has been removed from
+	 *		the server, and only a subset of information remains.  This call is useful to those that want to get a list of broadcasts that need
+	 *		to be removed from their own servers
+	 *	@example this example pulls page 1 of deleted broadcasts from site 'mysite' that have been deleted since june 1st, 2014 (UTC time)
+	 *		if($result = $v->broadcasts_deleted(array(
+	 *				'site' => 'mysite',
+	 *				'page' => 1,
+	 *				'date_deleted_after' => '2014-06-01'
+	 *			)))
+	 *		{
+	 *			var_dump($result['deleted']);
+	 *		}
+	 *	@param array $params associative array
+	 *			recognized parameters in array:
+	 *				- required if not authenticated.  If you use the sdk, it will authenticate you anyway :) -
+	 *				'site'				slug of site to filter to.
+	 *				OR
+	 *				'sites'				comma-delimited list of site slugs to filter to.
+	 *				- optional -
+	 *				'page'				current page of listings.  pages begin at '1', and this is the default value
+	 *				'per_page'			number of deleted broadcasts to display per page.  Default is '25'
+	 *				'id'				id of deleted broadcast - useful if you only want to get details of a single deleted broadcast
+	 *				'date_deleted_after'	Instructs the CMS to return broadcast that have been deleted AFTER the given date.  Can be a date string or integer timestamp.  Note that date strings should be in standard formats.
+	 *				'date_deleted_before'	Instructs the CMS to return broadcast that have been deleted BEFORE the given date.  Can be a date string or integer timestamp.  Note that date strings should be in standard formats.
+	 *	@return false on failure, array on success.  if failed, $volar->getError() can be used to get last error string
+	 */
+	public function broadcasts_deleted($params = array())
+	{
+		return $this->request('api/client/broadcast/deleted', 'GET', $params);
 	}
 
 	/**
@@ -854,5 +891,4 @@ class Volar {
 	}
 
 }
-?>
 
